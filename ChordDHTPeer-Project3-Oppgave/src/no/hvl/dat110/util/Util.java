@@ -43,9 +43,24 @@ public class Util {
 		
 		// implement: read the descriptions above
 		boolean cond = false;
-
 		
-		return cond;
+        BigInteger bound = Hash.addressSize();
+        BigInteger temporaryUpper = upper;
+
+        if (lower.compareTo(upper) == 1) {
+            temporaryUpper = upper.add(bound);
+            if (id.compareTo(new BigInteger("0")) == 1 || id.compareTo(new BigInteger("0")) == 0 &&
+                    (id.compareTo(upper) == -1 || id.compareTo(upper) == 0)) {
+                id = id.add(bound);
+            }
+        }
+        upper = temporaryUpper;
+        if (id.compareTo(lower) >= 0) {
+            if (upper.compareTo(id) >= 0) {
+                cond = true;
+            }
+        }
+        return cond;
 	}
 	
 	public static List<String> toString(List<NodeInterface> list) throws RemoteException {
